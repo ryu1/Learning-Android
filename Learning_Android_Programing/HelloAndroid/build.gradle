@@ -1,0 +1,118 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.4'
+    }
+}
+apply plugin: 'android'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+    
+    defaultConfig {
+      //manifestファイルと異なるビルドをする場合のみコメント外すこと
+      //packageName = manifest.@package.text()
+      //versionCode = manifest.@versionCode.text()
+      //versionName = manifest.@versionName.text()
+    }
+
+    buildTypes {
+      debug {
+        //packageNameSuffix = ".dev"
+        debuggable = true
+        debugSigned = true
+        zipAlign = true
+      }
+      staging {
+        //packageNameSuffix = ".stg"
+        debugSigned = true
+        zipAlign = true
+      }
+      release {
+        debugSigned = false
+        zipAlign = true
+      }
+    }
+    
+    sourceSets {
+        main {
+            //manifest.srcFile 'AndroidManifest.xml'
+            //java.srcDirs = ['src']
+            //resources.srcDirs = ['src']
+            //aidl.srcDirs = ['src']
+            //renderscript.srcDirs = ['src']
+            //res.srcDirs = ['res']
+            //assets.srcDirs = ['assets']
+            manifest {
+                srcFile 'AndroidManifest.xml'
+            }
+            java {
+                srcDir 'src'
+            }
+            res {
+                srcDir 'res'
+            }
+            assets {
+                srcDir 'src'
+            }
+            resources {
+                srcDir 'src'
+            }
+        }
+        test {
+            java {
+                srcDir 'tests/src'
+            }
+            resources {
+                srcDir 'tests/src'
+            }
+        }
+        debug {
+            java {
+                srcDir 'profiles/dev/src'
+            }
+            resources {
+                srcDir 'profiles/dev/src'
+            }
+        }
+        staging {
+            java {
+                srcDir 'profiles/stg/src'
+            }
+            resources {
+                srcDir 'profiles/stg/src'
+            }
+        }
+        release {
+            java {
+                srcDir 'profiles/release/src'
+            }
+            resources {
+                srcDir 'profiles/release/src'
+            }
+        }
+        
+        //instrumentTest.setRoot('tests')
+    }
+
+
+}
+
+sourceCompatibility=1.6
+targetCompatibility=1.6
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+tasks.withType(Compile) {
+    options.encoding = 'UTF-8'
+}

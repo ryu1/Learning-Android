@@ -1,0 +1,6 @@
+[submodule "Android-Device-Compatibility"]
+	path = Android-Device-Compatibility
+	url = https://github.com/mixi-inc/Android-Device-Compatibility
+[submodule "android-gradle-build-system-sample"]
+	path = android-gradle-build-system-sample
+	url = https://github.com/nobuoka/android-gradle-build-system-sample
